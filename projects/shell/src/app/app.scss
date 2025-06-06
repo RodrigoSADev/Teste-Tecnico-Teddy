@@ -1,0 +1,6 @@
+// Limpar todos os estilos para que o microfrontend ocupe a tela toda
+:host {
+  display: block;
+  width: 100%;
+  height: 100vh;
+}
