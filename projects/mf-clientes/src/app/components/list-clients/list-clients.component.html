@@ -1,0 +1,64 @@
+<div class="container">
+  <app-header [username]="username" [activeTab]="'clientes'"> </app-header>
+
+  <main class="main-content">
+    <div class="clients-header">
+      <h2>{{ totalClients }} clientes encontrados:</h2>
+      <div class="pagination-info">
+        Clientes por página:
+        <select [(ngModel)]="clientsPerPage" class="page-select">
+          <option value="16">16</option>
+          <option value="32">32</option>
+          <option value="48">48</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="clients-grid">
+      <div *ngFor="let cliente of clients" class="client-card">
+        <div class="client-info">
+          <h3>{{ cliente.nome }}</h3>
+          <p>
+            Salário:
+            {{ cliente.salario | currency : "BRL" : "symbol" : "1.2-2" }}
+          </p>
+          <p>
+            Empresas:
+            {{ cliente.empresas | currency : "BRL" : "symbol" : "1.2-2" }}
+          </p>
+        </div>
+        <div class="client-actions">
+          <button
+            class="btn-action btn-add"
+            (click)="selecionarCliente(cliente)"
+          >
+            +
+          </button>
+          <button class="btn-action btn-edit" (click)="editarCliente(cliente)">
+            ✏️
+          </button>
+          <button
+            class="btn-action btn-delete"
+            (click)="excluirCliente(cliente)"
+          >
+            🗑️
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <button class="btn-criar-cliente" (click)="criarCliente()">
+      Criar cliente
+    </button>
+
+    <div class="pagination">
+      <button class="page-btn" [disabled]="currentPage === 1">1</button>
+      <span>...</span>
+      <button class="page-btn">3</button>
+      <button class="page-btn active">4</button>
+      <button class="page-btn">5</button>
+      <span>...</span>
+      <button class="page-btn">12</button>
+    </div>
+  </main>
+</div>
