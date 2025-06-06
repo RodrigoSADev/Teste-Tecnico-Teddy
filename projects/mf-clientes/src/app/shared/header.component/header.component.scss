@@ -1,0 +1,39 @@
+.header {
+  background-color: white;
+  padding: 1rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.logo-img {
+  height: 40px;
+}
+
+.nav {
+  display: flex;
+  gap: 2rem;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: #666;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.nav-link.active {
+  color: #ff6b35;
+  border-bottom: 2px solid #ff6b35;
+  padding-bottom: 0.25rem;
+}
+
+.nav-link:hover {
+  color: #ff6b35;
+}
+
+.user-info {
+  color: #333;
+  font-weight: 500;
+}
