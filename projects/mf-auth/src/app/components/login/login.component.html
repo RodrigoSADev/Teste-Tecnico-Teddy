@@ -1,0 +1,26 @@
+<section class="login-container">
+  <div class="login-card">
+    <h2>Olá, seja bem-vindo!</h2>
+    <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+      <div class="form-group">
+        <input
+          type="text"
+          id="username"
+          formControlName="username"
+          placeholder="Digite seu nome:"
+          class="form-control"
+        />
+      </div>
+      @if (loginForm.get('username')?.invalid &&
+      loginForm.get('username')?.touched) {
+      <p class="error-message">
+        Por favor, preencha o campo de nome com pelo menos 2 caracteres.
+      </p>
+      }
+
+      <button type="submit" [disabled]="loginForm.invalid" class="btn-primary">
+        Entrar
+      </button>
+    </form>
+  </div>
+</section>
