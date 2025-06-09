@@ -37,14 +37,15 @@
           >
             +
           </button>
-          <button class="btn-action btn-edit" (click)="editarCliente(cliente)">
-            ✏️
-          </button>
+          <button
+            class="btn-action btn-edit"
+            (click)="editarCliente(cliente)"
+          ></button>
           <button
             class="btn-action btn-delete"
             (click)="excluirCliente(cliente)"
           >
-            🗑️
+            -
           </button>
         </div>
       </div>
@@ -62,5 +63,14 @@
       (pageChange)="onPageChange($event)"
     >
     </app-pagination>
+
+    <app-modal
+      #clientModal
+      [type]="modalType"
+      [client]="selectedClient()"
+      (save)="onSaveClient($event)"
+      (delete)="onDeleteClient($event)"
+      (cancel)="onModalCancel()"
+    ></app-modal>
   </main>
 </section>
