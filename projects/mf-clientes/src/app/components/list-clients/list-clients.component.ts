@@ -56,6 +56,12 @@ export class ListClientsComponent implements OnInit {
     this.loadClients();
   }
 
+  onClientsPerPageChange(value: number): void {
+    this.clientsPerPage.set(value);
+    this.currentPage.set(1);
+    this.loadClients();
+  }
+
   onSelectClient(client: Client) {
     this.selectedClientsService.toggleSelectClient(client);
   }
