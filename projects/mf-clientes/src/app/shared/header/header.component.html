@@ -1,25 +1,18 @@
 <header class="header">
   <div class="logo">
-    <img
-      src="/projects/mf-clientes/public/assets/teddy-logo.png"
-      alt="Teddy"
-      class="logo-img"
-    />
+    <img src="/teddy-logo.png" alt="Teddy" class="logo-img" />
   </div>
   <nav class="nav">
-    <a
-      routerLink="/clientes"
-      class="nav-link"
-      [class.active]="activeTab() === 'clientes'"
+    <a routerLink="/clientes" class="nav-link" routerLinkActive="active"
       >Clientes</a
     >
     <a
-      routerLink="/clientes/selecionados"
+      routerLink="/clientes-selecionados"
       class="nav-link"
-      [class.active]="activeTab() === 'selecionados'"
+      routerLinkActive="active"
       >Clientes selecionados</a
     >
-    <a routerLink="/" class="nav-link" (click)="onLogout()">Sair</a>
+    <a class="nav-link" (click)="onLogout()">Sair</a>
   </nav>
   <div class="user-info">Olá, {{ username() }}</div>
 </header>
