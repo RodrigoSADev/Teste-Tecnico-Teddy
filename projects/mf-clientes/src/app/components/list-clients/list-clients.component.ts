@@ -4,10 +4,11 @@ import { FormsModule } from '@angular/forms';
 import { Client } from '../../models/client.interface';
 import { ClientsService } from '../../services/clients.service';
 import { HeaderComponent } from '../../shared/header/header.component';
+import { PaginationComponent } from '../pagination/pagination.component';
 
 @Component({
   selector: 'app-list-clients',
-  imports: [HeaderComponent, CommonModule, FormsModule],
+  imports: [HeaderComponent, CommonModule, FormsModule, PaginationComponent],
   templateUrl: './list-clients.component.html',
   styleUrl: './list-clients.component.scss',
 })
@@ -15,9 +16,9 @@ export class ListClientsComponent implements OnInit {
   clientsService = inject(ClientsService);
 
   username: string = '';
-  totalClients: number = 16;
-  clientsPerPage: number = 16;
-  currentPage: number = 1;
+  clientsPerPage = signal<number>(8);
+  currentPage = signal<number>(1);
+  totalPages = signal<number>(0);
 
   clients = signal<Client[]>([]);
 
@@ -27,12 +28,18 @@ export class ListClientsComponent implements OnInit {
 
   loadClients(): void {
     this.clientsService
-      .getClients(this.currentPage, this.clientsPerPage)
+      .getClients(this.currentPage(), this.clientsPerPage())
       .subscribe({
         next: (response) => {
           this.clients.set(response.clients);
+          this.totalPages.set(response.totalPages);
         },
       });
+  }
+
+  onPageChange(page: number): void {
+    this.currentPage.set(page);
+    this.loadClients();
   }
 
   selecionarCliente(cliente: any) {

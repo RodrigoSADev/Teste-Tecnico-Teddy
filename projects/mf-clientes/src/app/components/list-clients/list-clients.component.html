@@ -1,9 +1,9 @@
-<div class="container">
+<section class="container">
   <app-header [username]="username" [activeTab]="'clientes'"> </app-header>
 
   <main class="main-content">
     <div class="clients-header">
-      <h2>{{ totalClients }} clientes encontrados:</h2>
+      <h2>{{ clients().length }} clientes encontrados:</h2>
       <div class="pagination-info">
         Clientes por página:
         <select [(ngModel)]="clientsPerPage" class="page-select">
@@ -55,6 +55,12 @@
       Criar cliente
     </button>
 
-    <div class="pagination"></div>
+    <app-pagination
+      [currentPage]="currentPage()"
+      [totalItems]="totalPages() * clientsPerPage()"
+      [itemsPerPage]="clientsPerPage()"
+      (pageChange)="onPageChange($event)"
+    >
+    </app-pagination>
   </main>
-</div>
+</section>
