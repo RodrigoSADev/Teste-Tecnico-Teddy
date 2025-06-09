@@ -1,0 +1,46 @@
+<button class="hamburger" (click)="toggleSidebar()" *ngIf="!sidebarOpen">
+  &#9776;
+</button>
+
+@if (sidebarOpen) {
+<div class="backdrop" (click)="toggleSidebar()"></div>
+}
+
+<aside class="sidebar" [class.open]="sidebarOpen">
+  <div class="sidebar-top">
+    <img src="assets/teddy-logo.png" alt="Logo Teddy" class="logo-img" />
+    <button class="close-btn" (click)="toggleSidebar()">
+      <span class="close-arrow">&#8592;</span>
+    </button>
+  </div>
+  <div class="sidebar-content">
+    <nav class="sidebar-nav">
+      <a routerLink="/" (click)="toggleSidebar()">
+        <span class="icon">
+          <img src="assets/home.png" alt="Home" />
+        </span>
+        Home
+      </a>
+      <a
+        routerLink="/clientes"
+        routerLinkActive="active"
+        (click)="toggleSidebar()"
+      >
+        <span class="icon">
+          <img src="assets/clients.png" alt="Clientes" />
+        </span>
+        Clientes
+      </a>
+      <a
+        routerLink="/clientes-selecionados"
+        routerLinkActive="active"
+        (click)="toggleSidebar()"
+      >
+        <span class="icon">
+          <img src="assets/selected-clients.png" alt="Selecionados" />
+        </span>
+        Clientes selecionados
+      </a>
+    </nav>
+  </div>
+</aside>
