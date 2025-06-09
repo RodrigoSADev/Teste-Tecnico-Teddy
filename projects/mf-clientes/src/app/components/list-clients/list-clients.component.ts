@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { Client } from '../../models/client.interface';
 import { ModalType } from '../../models/modal.type';
 import { ClientsService } from '../../services/clients.service';
+import { SelectedClientsService } from '../../services/selected-clients.service';
 import { HeaderComponent } from '../../shared/header/header.component';
 import { ModalComponent } from '../modal/modal.component';
 import { PaginationComponent } from '../pagination/pagination.component';
@@ -23,8 +24,9 @@ import { PaginationComponent } from '../pagination/pagination.component';
 export class ListClientsComponent implements OnInit {
   clientModal = viewChild(ModalComponent);
   clientsService = inject(ClientsService);
+  selectedClientsService = inject(SelectedClientsService);
 
-  username: string = '';
+  username = sessionStorage.getItem('userName') || 'Usuário';
   clientsPerPage = signal<number>(8);
   currentPage = signal<number>(1);
   totalPages = signal<number>(0);
@@ -54,8 +56,8 @@ export class ListClientsComponent implements OnInit {
     this.loadClients();
   }
 
-  selecionarCliente(cliente: any) {
-    console.log('Cliente selecionado:', cliente);
+  onSelectClient(client: Client) {
+    this.selectedClientsService.toggleSelectClient(client);
   }
 
   // Modal actions
@@ -65,15 +67,15 @@ export class ListClientsComponent implements OnInit {
     this.clientModal()?.open();
   }
 
-  editarCliente(cliente: Client): void {
+  editarCliente(client: Client): void {
     this.modalType = 'edit';
-    this.selectedClient.set(cliente);
+    this.selectedClient.set(client);
     this.clientModal()?.open();
   }
 
-  excluirCliente(cliente: Client): void {
+  excluirCliente(client: Client): void {
     this.modalType = 'delete';
-    this.selectedClient.set(cliente);
+    this.selectedClient.set(client);
     this.clientModal()?.open();
   }
 

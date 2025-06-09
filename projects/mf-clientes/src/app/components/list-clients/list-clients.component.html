@@ -1,5 +1,5 @@
 <section class="container">
-  <app-header [username]="username" [activeTab]="'clientes'"> </app-header>
+  <app-header [username]="username"> </app-header>
 
   <main class="main-content">
     <div class="clients-header">
@@ -15,35 +15,32 @@
     </div>
 
     <div class="clients-grid">
-      @for (cliente of clients(); track cliente.id) {
+      @for (client of clients(); track client.id) {
       <div class="client-card">
         <div class="client-info">
-          <h3>{{ cliente.name }}</h3>
+          <h3>{{ client.name }}</h3>
           <p>
             Salário:
-            {{ cliente.salary | currency : "BRL" : "symbol" : "1.2-2" }}
+            {{ client.salary | currency : "BRL" : "symbol" : "1.2-2" }}
           </p>
           <p>
             Empresas:
             {{
-              cliente.companyValuation | currency : "BRL" : "symbol" : "1.2-2"
+              client.companyValuation | currency : "BRL" : "symbol" : "1.2-2"
             }}
           </p>
         </div>
         <div class="client-actions">
-          <button
-            class="btn-action btn-add"
-            (click)="selecionarCliente(cliente)"
-          >
+          <button class="btn-action btn-add" (click)="onSelectClient(client)">
             +
           </button>
           <button
             class="btn-action btn-edit"
-            (click)="editarCliente(cliente)"
+            (click)="editarCliente(client)"
           ></button>
           <button
             class="btn-action btn-delete"
-            (click)="excluirCliente(cliente)"
+            (click)="excluirCliente(client)"
           >
             -
           </button>
