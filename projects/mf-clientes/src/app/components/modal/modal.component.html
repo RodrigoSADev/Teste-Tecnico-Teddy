@@ -1,0 +1,82 @@
+@if (isOpen()) {
+<div class="modal-backdrop" (click)="onBackdropClick($event)">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2 class="modal-title">{{ getModalTitle() }}</h2>
+      <button class="close-button" (click)="close()" type="button">×</button>
+    </div>
+
+    @if (type() === 'create' || type() === 'edit') {
+    <form [formGroup]="clientForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <input
+          type="text"
+          formControlName="name"
+          placeholder="Digite o nome:"
+          class="form-input"
+          [class.error]="
+            clientForm.get('name')?.invalid && clientForm.get('name')?.touched
+          "
+        />
+        @if (clientForm.get('name')?.invalid && clientForm.get('name')?.touched)
+        {
+        <p class="error-message">Nome é obrigatório</p>
+        }
+      </div>
+
+      <div class="form-group">
+        <input
+          type="text"
+          [value]="clientForm.get('salary')?.value | currencyInput"
+          (input)="onSalaryInput($event)"
+          placeholder="Digite o salário:"
+          class="form-input"
+          [class.error]="
+            clientForm.get('salary')?.invalid &&
+            clientForm.get('salary')?.touched
+          "
+        />
+        @if (clientForm.get('salary')?.invalid &&
+        clientForm.get('salary')?.touched) {
+        <p class="error-message">Salário deve ser maior que zero</p>
+        }
+      </div>
+
+      <div class="form-group">
+        <input
+          type="text"
+          [value]="clientForm.get('companyValuation')?.value | currencyInput"
+          (input)="onCompanyValuationInput($event)"
+          placeholder="Digite o valor da empresa:"
+          class="form-input"
+          [class.error]="
+            clientForm.get('companyValuation')?.invalid &&
+            clientForm.get('companyValuation')?.touched
+          "
+        />
+        @if (clientForm.get('companyValuation')?.invalid &&
+        clientForm.get('companyValuation')?.touched) {
+        <p class="error-message">Valor da empresa deve ser maior que zero</p>
+        }
+      </div>
+
+      <button
+        type="submit"
+        class="submit-button"
+        [disabled]="clientForm.invalid"
+      >
+        {{ getSubmitButtonText() }}
+      </button>
+    </form>
+    } @if (type() === 'delete') {
+    <p class="delete-message">
+      Você está prestes a excluir o cliente:
+      <strong>{{ client()?.name }}</strong>
+    </p>
+    <button type="button" class="submit-button" (click)="onSubmit()">
+      Excluir cliente
+    </button>
+    }
+  </div>
+</div>
+}
