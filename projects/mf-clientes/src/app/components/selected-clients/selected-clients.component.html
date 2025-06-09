@@ -1,0 +1,37 @@
+<section class="container">
+  <app-header />
+
+  <main class="main-content">
+    <h2>Clientes selecionados:</h2>
+    @if (selectedClients().length === 0) {
+    <p class="no-clients-selected">Nenhum cliente selecionado</p>
+    }
+
+    <div class="selected-clients-grid">
+      @for (client of selectedClients(); track client.id) {
+      <div class="selected-client-card">
+        <div class="selected-client-info">
+          <h3>{{ client.name }}</h3>
+          <p>
+            Salário: {{ client.salary | currency : "BRL" : "symbol" : "1.2-2" }}
+          </p>
+          <p>
+            Empresa:
+            {{
+              client.companyValuation | currency : "BRL" : "symbol" : "1.2-2"
+            }}
+          </p>
+        </div>
+        <button class="btn-remove" (click)="removerSelecao(client)">−</button>
+      </div>
+      }
+    </div>
+
+    <button
+      class="btn-clear-selection"
+      (click)="selectedClientsService.clearSelectedClients()"
+    >
+      Limpar seleção
+    </button>
+  </main>
+</section>
