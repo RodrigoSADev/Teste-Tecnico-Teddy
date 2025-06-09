@@ -119,6 +119,13 @@ export class ListClientsComponent implements OnInit {
       this.clientsService.updateClient(clientData).subscribe({
         next: () => {
           this.loadClients();
+          const selectedClients = this.selectedClientsService.selectedClients();
+          const updatedSelectedClients = selectedClients.map((client) =>
+            client.id === clientData.id ? clientData : client
+          );
+          this.selectedClientsService.selectedClients.set(
+            updatedSelectedClients
+          );
         },
         error: (error) => {
           console.error('Erro ao atualizar cliente:', error);
@@ -132,6 +139,13 @@ export class ListClientsComponent implements OnInit {
       this.clientsService.deleteClient(client.id).subscribe({
         next: () => {
           this.loadClients();
+          const selectedClients = this.selectedClientsService.selectedClients();
+          const updatedSelectedClients = selectedClients.filter(
+            (c) => c.id !== client.id
+          );
+          this.selectedClientsService.selectedClients.set(
+            updatedSelectedClients
+          );
         },
         error: (error) => {
           console.error('Erro ao excluir cliente:', error);
