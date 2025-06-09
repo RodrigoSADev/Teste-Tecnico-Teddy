@@ -1,0 +1,11 @@
+<div class="pagination">
+  @for (page of getPages(); track page) {
+  <button
+    [class.active]="page === currentPage()"
+    (click)="onPageChange(page)"
+    class="page-number"
+  >
+    {{ page }}
+  </button>
+  }
+</div>
