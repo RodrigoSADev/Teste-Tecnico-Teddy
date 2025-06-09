@@ -1,6 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Client } from '../../models/client.interface';
+import { ClientsService } from '../../services/clients.service';
 import { HeaderComponent } from '../../shared/header/header.component';
 
 @Component({
@@ -10,27 +12,27 @@ import { HeaderComponent } from '../../shared/header/header.component';
   styleUrl: './list-clients.component.scss',
 })
 export class ListClientsComponent implements OnInit {
+  clientsService = inject(ClientsService);
+
   username: string = '';
   totalClients: number = 16;
   clientsPerPage: number = 16;
-  currentPage: number = 4;
+  currentPage: number = 1;
 
-  clients: any[] = [];
+  clients = signal<Client[]>([]);
 
-  ngOnInit() {
-    this.username = sessionStorage.getItem('userName') || 'Usuário';
-    this.carregarClientes();
+  ngOnInit(): void {
+    this.loadClients();
   }
 
-  carregarClientes() {
-    this.clients = Array(16)
-      .fill(null)
-      .map((_, index) => ({
-        id: index + 1,
-        nome: 'Eduardo',
-        salario: 3500.0,
-        empresas: 120000.0,
-      }));
+  loadClients(): void {
+    this.clientsService
+      .getClients(this.currentPage, this.clientsPerPage)
+      .subscribe({
+        next: (response) => {
+          this.clients.set(response.clients);
+        },
+      });
   }
 
   selecionarCliente(cliente: any) {
