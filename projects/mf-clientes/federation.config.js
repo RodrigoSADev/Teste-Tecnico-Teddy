@@ -7,8 +7,10 @@ module.exports = withNativeFederation({
   name: "mf-clientes",
 
   exposes: {
-    "./Component":
+    "./ListClientsComponent":
       "./projects/mf-clientes/src/app/components/list-clients/list-clients.component.ts",
+    "./SelectedClientsComponent":
+      "./projects/mf-clientes/src/app/components/selected-clients/selected-clients.component.ts",
   },
 
   shared: {

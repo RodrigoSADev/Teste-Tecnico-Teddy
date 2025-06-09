@@ -10,8 +10,15 @@ export const routes: Routes = [
   {
     path: 'clientes',
     loadComponent: () =>
-      loadRemoteModule('mf-clientes', './Component').then(
+      loadRemoteModule('mf-clientes', './ListClientsComponent').then(
         (m) => m.ListClientsComponent
+      ),
+  },
+  {
+    path: 'clientes-selecionados',
+    loadComponent: () =>
+      loadRemoteModule('mf-clientes', './SelectedClientsComponent').then(
+        (m) => m.SelectedClientsComponent
       ),
   },
   {
