@@ -3,7 +3,9 @@
 
   <main class="main-content">
     <div class="clients-header">
-      <h2>{{ clients().length }} clientes encontrados:</h2>
+      <p class="clients-header-title">
+        <b>{{ clients().length }}</b> clientes encontrados:
+      </p>
       <div class="pagination-info">
         Clientes por página:
         <select [(ngModel)]="clientsPerPage" class="page-select">
@@ -20,36 +22,31 @@
         <div class="client-info">
           <h3>{{ client.name }}</h3>
           <p>
-            Salário:
-            {{ client.salary | currency : "BRL" : "symbol" : "1.2-2" }}
+            Salário: {{ client.salary | currency : "BRL" : "symbol" : "1.2-2" }}
           </p>
           <p>
-            Empresas:
+            Empresa:
             {{
               client.companyValuation | currency : "BRL" : "symbol" : "1.2-2"
             }}
           </p>
         </div>
         <div class="client-actions">
-          <button class="btn-action btn-add" (click)="onSelectClient(client)">
-            +
+          <button class="btn-action" (click)="onSelectClient(client)">
+            <img src="assets/add.png" alt="Adicionar" />
           </button>
-          <button
-            class="btn-action btn-edit"
-            (click)="editarCliente(client)"
-          ></button>
-          <button
-            class="btn-action btn-delete"
-            (click)="excluirCliente(client)"
-          >
-            -
+          <button class="btn-action" (click)="openModalEditClient(client)">
+            <img src="assets/edit.png" alt="Editar" />
+          </button>
+          <button class="btn-action" (click)="openModalDeleteClient(client)">
+            <img src="assets/delete.png" alt="Excluir" />
           </button>
         </div>
       </div>
       }
     </div>
 
-    <button class="btn-criar-cliente" (click)="criarCliente()">
+    <button class="btn-create-client" (click)="openModalCreateClient()">
       Criar cliente
     </button>
 

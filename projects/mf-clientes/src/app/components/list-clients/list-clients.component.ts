@@ -27,7 +27,7 @@ export class ListClientsComponent implements OnInit {
   selectedClientsService = inject(SelectedClientsService);
 
   username = sessionStorage.getItem('userName') || 'Usuário';
-  clientsPerPage = signal<number>(8);
+  clientsPerPage = signal<number>(16);
   currentPage = signal<number>(1);
   totalPages = signal<number>(0);
 
@@ -61,19 +61,19 @@ export class ListClientsComponent implements OnInit {
   }
 
   // Modal actions
-  criarCliente(): void {
+  openModalCreateClient(): void {
     this.modalType = 'create';
     this.selectedClient.set(null);
     this.clientModal()?.open();
   }
 
-  editarCliente(client: Client): void {
+  openModalEditClient(client: Client): void {
     this.modalType = 'edit';
     this.selectedClient.set(client);
     this.clientModal()?.open();
   }
 
-  excluirCliente(client: Client): void {
+  openModalDeleteClient(client: Client): void {
     this.modalType = 'delete';
     this.selectedClient.set(client);
     this.clientModal()?.open();
