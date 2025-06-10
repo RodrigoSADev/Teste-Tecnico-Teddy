@@ -1,0 +1,30 @@
+version: "3.8"
+
+services:
+  shell:
+    build:
+      context: .
+      dockerfile: projects/shell/Dockerfile
+    ports:
+      - "80:80"
+    depends_on:
+      - mf-clientes
+      - mf-auth
+
+  mf-clientes:
+    build:
+      context: .
+      dockerfile: projects/mf-clientes/Dockerfile
+    ports:
+      - "4201:4200"
+    environment:
+      - NODE_ENV=development
+
+  mf-auth:
+    build:
+      context: .
+      dockerfile: projects/mf-auth/Dockerfile
+    ports:
+      - "4202:4200"
+    environment:
+      - NODE_ENV=development
