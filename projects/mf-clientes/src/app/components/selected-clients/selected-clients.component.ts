@@ -12,7 +12,9 @@ import { HeaderComponent } from '../../shared/header/header.component';
 })
 export class SelectedClientsComponent {
   selectedClientsService = inject(SelectedClientsService);
+
   selectedClients = this.selectedClientsService.selectedClients;
+  username = sessionStorage.getItem('userName') || 'Usuário';
 
   removerSelecao(client: Client) {
     this.selectedClientsService.toggleSelectClient(client);
