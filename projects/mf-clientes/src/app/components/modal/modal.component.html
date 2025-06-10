@@ -1,36 +1,57 @@
 @if (isOpen()) {
-<div class="modal-backdrop" (click)="onBackdropClick($event)">
-  <div class="modal-content" (click)="$event.stopPropagation()">
-    <div class="modal-header">
-      <h2 class="modal-title">{{ getModalTitle() }}</h2>
-      <button class="close-button" (click)="close()" type="button">×</button>
+<div
+  class="modal-backdrop"
+  (click)="onBackdropClick($event)"
+  data-test="modal-backdrop"
+>
+  <div
+    class="modal-content"
+    (click)="$event.stopPropagation()"
+    data-test="modal-content"
+  >
+    <div class="modal-header" data-test="modal-header">
+      <h2 class="modal-title" data-test="modal-title">{{ getModalTitle() }}</h2>
+      <button
+        class="close-button"
+        (click)="close()"
+        type="button"
+        data-test="close-button"
+      >
+        ×
+      </button>
     </div>
 
     @if (type() === 'create' || type() === 'edit') {
-    <form [formGroup]="clientForm" (ngSubmit)="onSubmit()">
-      <div class="form-group">
+    <form
+      [formGroup]="clientForm"
+      (ngSubmit)="onSubmit()"
+      data-test="client-form"
+    >
+      <div class="form-group" data-test="name-form-group">
         <input
           type="text"
           formControlName="name"
           placeholder="Digite o nome:"
           class="form-input"
+          data-test="name-input"
           [class.error]="
             clientForm.get('name')?.invalid && clientForm.get('name')?.touched
           "
         />
         @if (clientForm.get('name')?.invalid && clientForm.get('name')?.touched)
         {
-        <p class="error-message">Nome é obrigatório</p>
+        <p class="error-message" data-test="name-error">Nome é obrigatório</p>
         }
       </div>
 
-      <div class="form-group">
+      <div class="form-group" data-test="salary-form-group">
         <input
           type="text"
           [value]="clientForm.get('salary')?.value | currencyInput"
           (input)="onSalaryInput($event)"
           placeholder="Digite o salário:"
           class="form-input"
+          data-test="salary-input"
           [class.error]="
             clientForm.get('salary')?.invalid &&
             clientForm.get('salary')?.touched
@@ -38,17 +59,20 @@
         />
         @if (clientForm.get('salary')?.invalid &&
         clientForm.get('salary')?.touched) {
-        <p class="error-message">Salário deve ser maior que zero</p>
+        <p class="error-message" data-test="salary-error">
+          Salário deve ser maior que zero
+        </p>
         }
       </div>
 
-      <div class="form-group">
+      <div class="form-group" data-test="company-form-group">
         <input
           type="text"
           [value]="clientForm.get('companyValuation')?.value | currencyInput"
           (input)="onCompanyValuationInput($event)"
           placeholder="Digite o valor da empresa:"
           class="form-input"
+          data-test="company-input"
           [class.error]="
             clientForm.get('companyValuation')?.invalid &&
             clientForm.get('companyValuation')?.touched
@@ -56,7 +80,9 @@
         />
         @if (clientForm.get('companyValuation')?.invalid &&
         clientForm.get('companyValuation')?.touched) {
-        <p class="error-message">Valor da empresa deve ser maior que zero</p>
+        <p class="error-message" data-test="company-error">
+          Valor da empresa deve ser maior que zero
+        </p>
         }
       </div>
 
@@ -64,16 +90,22 @@
         type="submit"
         class="submit-button"
         [disabled]="clientForm.invalid"
+        data-test="submit-button"
       >
         {{ getSubmitButtonText() }}
       </button>
     </form>
     } @if (type() === 'delete') {
-    <p class="delete-message">
+    <p class="delete-message" data-test="delete-message">
       Você está prestes a excluir o cliente:
       <strong>{{ client()?.name }}</strong>
     </p>
-    <button type="button" class="submit-button" (click)="onSubmit()">
+    <button
+      type="button"
+      class="submit-button"
+      (click)="onSubmit()"
+      data-test="delete-button"
+    >
       Excluir cliente
     </button>
     }
