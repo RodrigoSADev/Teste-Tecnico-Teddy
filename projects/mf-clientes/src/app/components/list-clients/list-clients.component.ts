@@ -33,6 +33,7 @@ export class ListClientsComponent implements OnInit {
 
   clients = signal<Client[]>([]);
   selectedClient = signal<Client | null>(null);
+  isClientSelected = signal<boolean>(false);
 
   modalType: ModalType = 'create';
 
@@ -64,6 +65,12 @@ export class ListClientsComponent implements OnInit {
 
   onSelectClient(client: Client) {
     this.selectedClientsService.toggleSelectClient(client);
+  }
+
+  isSelected(client: Client): boolean {
+    return this.selectedClientsService
+      .selectedClients()
+      .some((c) => c.id === client.id);
   }
 
   // Modal actions

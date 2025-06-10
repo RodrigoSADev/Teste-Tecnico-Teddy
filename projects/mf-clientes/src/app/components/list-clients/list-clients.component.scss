@@ -75,6 +75,21 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    filter: grayscale(100%);
+
+    &:hover {
+      transform: none;
+    }
+  }
+
+  &:not(:disabled):hover {
+    transform: scale(1.1);
+  }
 }
 
 .btn-action img {

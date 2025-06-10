@@ -35,7 +35,11 @@
           </p>
         </div>
         <div class="client-actions">
-          <button class="btn-action" (click)="onSelectClient(client)">
+          <button
+            class="btn-action"
+            (click)="onSelectClient(client)"
+            [disabled]="isSelected(client)"
+          >
             <img src="assets/add.png" alt="Adicionar" />
           </button>
           <button class="btn-action" (click)="openModalEditClient(client)">
