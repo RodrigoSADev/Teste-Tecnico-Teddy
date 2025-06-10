@@ -80,5 +80,4 @@ npm run start:all
 ```
 ## Vídeo da Aplicação Rodando
 
-
-
+https://github.com/user-attachments/assets/6f094f39-6301-44ee-8131-615e63304b76
