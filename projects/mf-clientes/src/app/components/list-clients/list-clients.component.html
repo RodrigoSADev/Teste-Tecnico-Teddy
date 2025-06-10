@@ -1,17 +1,18 @@
-<section class="container">
-  <app-header [username]="username" />
+<section class="container" data-test="clients-container">
+  <app-header [username]="username" data-test="header" />
 
-  <main class="main-content">
-    <div class="clients-header">
-      <p class="clients-header-title">
+  <main class="main-content" data-test="main-content">
+    <div class="clients-header" data-test="clients-header">
+      <p class="clients-header-title" data-test="clients-count">
         <b>{{ clients().length }}</b> clientes encontrados:
       </p>
-      <div class="pagination-info">
+      <div class="pagination-info" data-test="pagination-info">
         Clientes por página:
         <select
           [(ngModel)]="clientsPerPage"
           (ngModelChange)="onClientsPerPageChange($event)"
           class="page-select"
+          data-test="clients-per-page-select"
         >
           <option value="16">16</option>
           <option value="32">32</option>
@@ -19,33 +20,42 @@
       </div>
     </div>
 
-    <div class="clients-grid">
+    <div class="clients-grid" data-test="clients-grid">
       @for (client of clients(); track client.id) {
-      <div class="client-card">
-        <div class="client-info">
-          <h3>{{ client.name }}</h3>
-          <p>
+      <div class="client-card" data-test="client-card">
+        <div class="client-info" data-test="client-info">
+          <h3 data-test="client-name">{{ client.name }}</h3>
+          <p data-test="client-salary">
             Salário: {{ client.salary | currency : "BRL" : "symbol" : "1.2-2" }}
           </p>
-          <p>
+          <p data-test="client-company">
             Empresa:
             {{
               client.companyValuation | currency : "BRL" : "symbol" : "1.2-2"
             }}
           </p>
         </div>
-        <div class="client-actions">
+        <div class="client-actions" data-test="client-actions">
           <button
             class="btn-action"
             (click)="onSelectClient(client)"
             [disabled]="isSelected(client)"
+            data-test="select-client-btn"
           >
             <img src="assets/add.png" alt="Adicionar" />
           </button>
-          <button class="btn-action" (click)="openModalEditClient(client)">
+          <button
+            class="btn-action"
+            (click)="openModalEditClient(client)"
+            data-test="edit-client-btn"
+          >
             <img src="assets/edit.png" alt="Editar" />
           </button>
-          <button class="btn-action" (click)="openModalDeleteClient(client)">
+          <button
+            class="btn-action"
+            (click)="openModalDeleteClient(client)"
+            data-test="delete-client-btn"
+          >
             <img src="assets/delete.png" alt="Excluir" />
           </button>
         </div>
@@ -53,7 +63,11 @@
       }
     </div>
 
-    <button class="btn-create-client" (click)="openModalCreateClient()">
+    <button
+      class="btn-create-client"
+      (click)="openModalCreateClient()"
+      data-test="create-client-btn"
+    >
       Criar cliente
     </button>
 
@@ -62,6 +76,7 @@
       [totalItems]="totalPages() * clientsPerPage()"
       [itemsPerPage]="clientsPerPage()"
       (pageChange)="onPageChange($event)"
+      data-test="pagination"
     >
     </app-pagination>
 
@@ -72,6 +87,7 @@
       (save)="onSaveClient($event)"
       (delete)="onDeleteClient($event)"
       (cancel)="onModalCancel()"
+      data-test="client-modal"
     ></app-modal>
   </main>
 </section>

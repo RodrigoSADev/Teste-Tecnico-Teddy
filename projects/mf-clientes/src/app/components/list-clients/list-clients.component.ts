@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CurrencyPipe } from '@angular/common';
 import { Component, inject, OnInit, signal, viewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Client } from '../../models/client.interface';
@@ -13,7 +13,7 @@ import { PaginationComponent } from '../pagination/pagination.component';
   selector: 'app-list-clients',
   imports: [
     HeaderComponent,
-    CommonModule,
+    CurrencyPipe,
     FormsModule,
     PaginationComponent,
     ModalComponent,
