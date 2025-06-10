@@ -13,6 +13,11 @@ export class HeaderComponent {
 
   username = input<string>('');
 
+  get firstName(): string {
+    const fullName = this.username();
+    return fullName ? fullName.split(' ')[0] : '';
+  }
+
   onLogout() {
     sessionStorage.removeItem('userName');
     this.router.navigate(['/']);
